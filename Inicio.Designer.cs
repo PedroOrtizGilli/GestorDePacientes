@@ -29,25 +29,13 @@ namespace GestorDePaciente
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
             dataGridView1 = new DataGridView();
             buscador = new TextBox();
             label1 = new Label();
             crearNuevo = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.CornflowerBlue;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Arial Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(0, -1);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(1404, 53);
-            textBox1.TabIndex = 2;
-            textBox1.Text = "Sistema de gestión de  pacientes";
-            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // dataGridView1
             // 
@@ -57,6 +45,7 @@ namespace GestorDePaciente
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(1295, 410);
             dataGridView1.TabIndex = 3;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // buscador
             // 
@@ -86,18 +75,29 @@ namespace GestorDePaciente
             crearNuevo.TabIndex = 6;
             crearNuevo.Text = "Nuevo Paciente";
             crearNuevo.UseVisualStyleBackColor = false;
+            crearNuevo.Click += crearNuevo_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Consolas", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(288, 18);
+            label2.Name = "label2";
+            label2.Size = new Size(830, 56);
+            label2.TabIndex = 7;
+            label2.Text = "Sistema de Gestión de pacientes";
             // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightCyan;
-            ClientSize = new Size(1319, 689);
+            ClientSize = new Size(1334, 686);
+            Controls.Add(label2);
             Controls.Add(crearNuevo);
             Controls.Add(label1);
             Controls.Add(buscador);
             Controls.Add(dataGridView1);
-            Controls.Add(textBox1);
             Name = "Inicio";
             Text = "Inicio";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -110,16 +110,11 @@ namespace GestorDePaciente
             throw new NotImplementedException();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
-        private TextBox textBox1;
         private DataGridView dataGridView1;
         private TextBox buscador;
         private Label label1;
         private Button crearNuevo;
+        private Label label2;
     }
 }

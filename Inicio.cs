@@ -78,7 +78,8 @@ namespace GestorDePaciente
             var formNuevo = new FormNuevoPaciente();
             formNuevo.ShowDialog();
 
-            cargarPacientesVencidos(); ;
+            cargarPacientesVencidos();
+            Console.WriteLine("Abro el form de nuevo paciente");
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
