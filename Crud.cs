@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace GestorDePaciente
@@ -45,7 +45,7 @@ namespace GestorDePaciente
                                     (@Nombre, @DNI, @ObraSocial, @Mail, @Telefono, @Edad, @Descipcion);
                                     SELECT last_insert_rowid();";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nombre", paciente.Nombre);
                         cmd.Parameters.AddWithValue("@DNI", paciente.DNI);
@@ -70,7 +70,7 @@ namespace GestorDePaciente
 
                     string query = "SELECT * FROM Pacientes ORDER BY Id";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     using (var lector = cmd.ExecuteReader())
                     {
                         while (lector.Read())
@@ -101,7 +101,7 @@ namespace GestorDePaciente
 
                     string query = "SELECT * FROM Pacientes WHERE Id = @Id";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", id);
 
@@ -140,7 +140,7 @@ namespace GestorDePaciente
                                     WHERE Nombre LIKE @Termino OR DNI LIKE @Termino
                                     ORDER BY Id";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Termino", "%" + termino + "%");
 
@@ -183,7 +183,7 @@ namespace GestorDePaciente
                                        Descripcion = @Descripcion
                                    WHERE Id = @Id";
                                    
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", paciente.Id);
                         cmd.Parameters.AddWithValue("@Nombre", paciente.Nombre);
@@ -207,7 +207,7 @@ namespace GestorDePaciente
 
                     string deleteRecetas = "DELETE FROM Recetas WHERE PacienteId = @Id";
 
-                    using (var cmd = new SQLiteCommand(deleteRecetas, conn))
+                    using (var cmd = new SqliteCommand(deleteRecetas, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", id);
                         cmd.ExecuteNonQuery();
@@ -215,7 +215,7 @@ namespace GestorDePaciente
 
                     string deletePaciente = "DELETE FROM Pacientes WHERE Id = @Id";
 
-                    using (var cmd = new SQLiteCommand(deletePaciente, conn))
+                    using (var cmd = new SqliteCommand(deletePaciente, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", id);
                         return cmd.ExecuteNonQuery() > 0;
@@ -249,7 +249,7 @@ namespace GestorDePaciente
                                     VALUES (@PacienteId, @NombreArchivo, @RutaArchivo, @FechaEmision, @Descripcion);
                                     SELECT last_insert_rowid();";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@PacienteId", receta.PacienteId);
                         cmd.Parameters.AddWithValue("@NombreArchivo", receta.NombreArchivo);
@@ -272,7 +272,7 @@ namespace GestorDePaciente
 
                     string query = "SELECT * FROM Recetas WHERE PacienteId = @PacienteId ORDER BY FechaEmision DESC";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@PacienteId", pacienteId);
 
@@ -303,7 +303,7 @@ namespace GestorDePaciente
                 {
                     conn.Open();
                     string query = "SELECT * FROM Recetas WHERE Id = @Id";
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", recetaId);
 
@@ -349,7 +349,7 @@ namespace GestorDePaciente
                     {
                         conn.Open();
                         string query = "DELETE FROM Recetas WHERE Id = @Id";
-                        using (var cmd = new SQLiteCommand(query, conn))
+                        using (var cmd = new SqliteCommand(query, conn))
                         {
                             cmd.Parameters.AddWithValue("@Id", recetaId);
                             return cmd.ExecuteNonQuery() > 0;

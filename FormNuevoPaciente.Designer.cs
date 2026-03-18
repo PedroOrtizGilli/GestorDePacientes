@@ -45,6 +45,7 @@
             txtNombre = new TextBox();
             btnAgregarRecetas = new Button();
             btnCrear = new Button();
+            btnCancelar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -178,22 +179,36 @@
             btnAgregarRecetas.TabIndex = 28;
             btnAgregarRecetas.Text = "Agregar recetas";
             btnAgregarRecetas.UseVisualStyleBackColor = true;
+            btnAgregarRecetas.Click += btnAgregarRecetas_Click;
             // 
             // btnCrear
             // 
             btnCrear.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCrear.Location = new Point(190, 655);
+            btnCrear.Location = new Point(75, 655);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(168, 66);
             btnCrear.TabIndex = 29;
             btnCrear.Text = "Crear";
             btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.Click += btnCrear_Click;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancelar.Location = new Point(321, 655);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(168, 66);
+            btnCancelar.TabIndex = 30;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // FormNuevoPaciente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(566, 763);
+            Controls.Add(btnCancelar);
             Controls.Add(btnCrear);
             Controls.Add(btnAgregarRecetas);
             Controls.Add(label7);
@@ -235,5 +250,6 @@
         private TextBox txtNombre;
         private Button btnAgregarRecetas;
         private Button btnCrear;
+        private Button btnCancelar;
     }
 }

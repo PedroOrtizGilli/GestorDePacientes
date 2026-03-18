@@ -1,34 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.IO;
 
 namespace GestorDePaciente
 {
     internal class DatabaseHelper
     {
-        //Ruta de la base de datos
         private static string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GestorPacientes.db");
+        private static string connectionString = $"Data Source={dbPath}";
 
-        //String de conexion
-        private static string connectionString = $"Data Source={dbPath};Version=3;";
-
-        //Se ejecuta al iniciar la app
         public static void InicializarBaseDatos()
         {
-            if (!File.Exists(dbPath))
-            {
-                SQLiteConnection.CreateFile(dbPath);
-
-                CrearTablas();
-            }
+            CrearTablas();
         }
 
         //Crear las tablas
         private static void CrearTablas()
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SqliteConnection(connectionString))
             {
                 conn.Open();
 
@@ -41,12 +32,12 @@ namespace GestorDePaciente
                             Mail TEXT,
                             Telefono TEXT,
                             Edad INTEGER,
-                            Descripccion TEXT
+                            Descripcion TEXT
                     )";
 
                 string crearRecetas = @"
                         CREATE TABLE IF NOT EXISTS Recetas (
-                            Id INTEGER PRIMARY KEY AUTOINCCREMENT,
+                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
                             PacienteId INTEGER NOT NULL,
                             NombreArchivo TEXT NOT NULL,
                             RutaArchivo TEXT NOT NULL,
@@ -56,12 +47,12 @@ namespace GestorDePaciente
                     )";
 
                 //Ejecutar SQL para Pacientes y Recetas
-                using (var cmd = new SQLiteCommand(crearPacientes, conn))
+                using (var cmd = new SqliteCommand(crearPacientes, conn))
                 {
                     cmd.ExecuteNonQuery();
                 }
 
-                using (var cmd = new SQLiteCommand(crearRecetas, conn))
+                using (var cmd = new SqliteCommand(crearRecetas, conn))
                 {
                     cmd.ExecuteNonQuery();
                 }
@@ -69,9 +60,9 @@ namespace GestorDePaciente
         }
         
         //Auxiliar para obtener conexion
-        public static SQLiteConnection ObtenerConexion()
+        public static SqliteConnection ObtenerConexion()
         {
-            return new SQLiteConnection(connectionString);
+            return new SqliteConnection(connectionString);
         }
     }
 }

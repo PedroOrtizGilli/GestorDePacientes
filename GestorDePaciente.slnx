@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../GestorDePaciente.UnitTests/GestorDePaciente.UnitTests.csproj" Id="b595933e-8101-4335-802d-99fbf12c8d95" />
   <Project Path="GestorDePaciente.csproj" />
 </Solution>
