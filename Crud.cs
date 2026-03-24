@@ -42,18 +42,18 @@ namespace GestorDePaciente
 
                     string query = @"INSERT INTO Pacientes (Nombre, DNI, ObraSocial, Mail, Telefono, Edad, Descripcion)
                                     VALUES
-                                    (@Nombre, @DNI, @ObraSocial, @Mail, @Telefono, @Edad, @Descipcion);
+                                    (@Nombre, @DNI, @ObraSocial, @Mail, @Telefono, @Edad, @Descripcion);
                                     SELECT last_insert_rowid();";
 
                     using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nombre", paciente.Nombre);
-                        cmd.Parameters.AddWithValue("@DNI", paciente.DNI);
-                        cmd.Parameters.AddWithValue("@ObraSocial", paciente.ObraSocial);
-                        cmd.Parameters.AddWithValue("@Mail", paciente.Mail);
-                        cmd.Parameters.AddWithValue("@Telefono", paciente.Telefono);
+                        cmd.Parameters.AddWithValue("@DNI", paciente.DNI ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ObraSocial", paciente.ObraSocial ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Mail", paciente.Mail ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Telefono", paciente.Telefono ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@Edad", paciente.Edad);
-                        cmd.Parameters.AddWithValue("@Descripcion", paciente.Descripcion);
+                        cmd.Parameters.AddWithValue("@Descripcion", paciente.Descripcion ?? (object)DBNull.Value);
 
                         return Convert.ToInt32(cmd.ExecuteScalar());
                     }

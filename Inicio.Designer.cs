@@ -54,7 +54,7 @@ namespace GestorDePaciente
             buscador.Name = "buscador";
             buscador.Size = new Size(481, 22);
             buscador.TabIndex = 4;
-            buscador.TextChanged += textBox2_TextChanged;
+            buscador.TextChanged += buscador_TextChanged;
             // 
             // label1
             // 
