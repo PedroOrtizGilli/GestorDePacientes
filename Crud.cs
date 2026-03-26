@@ -79,12 +79,12 @@ namespace GestorDePaciente
                             {
                                 Id = Convert.ToInt32(lector["Id"]),
                                 Nombre = lector["Nombre"].ToString(),
-                                DNI = lector["DNI"].ToString(),
-                                ObraSocial = lector["ObraSocial"].ToString(),
-                                Mail = lector["Mail"].ToString(),
-                                Telefono = lector["Telefono"].ToString(),
+                                DNI = lector["DNI"] != DBNull.Value ? lector["DNI"].ToString() : null,
+                                ObraSocial = lector["ObraSocial"] != DBNull.Value ? lector["ObraSocial"].ToString() : null,
+                                Mail = lector["Mail"] != DBNull.Value ? lector["Mail"].ToString() : null,
+                                Telefono = lector["Telefono"] != DBNull.Value ? lector["Telefono"].ToString() : null,
                                 Edad = Convert.ToInt32(lector["Edad"]),
-                                Descripcion = lector["Descripcion"].ToString()
+                                Descripcion = lector["Descripcion"] != DBNull.Value ? lector["Descripcion"].ToString() : null
                             });
                         }
                     }
@@ -113,12 +113,12 @@ namespace GestorDePaciente
                                 {
                                     Id = Convert.ToInt32(lector["Id"]),
                                     Nombre = lector["Nombre"].ToString(),
-                                    DNI = lector["DNI"].ToString(),
-                                    ObraSocial = lector["ObraSocial"].ToString(),
-                                    Mail = lector["Mail"].ToString(),
-                                    Telefono = lector["Telefono"].ToString(),
+                                    DNI = lector["DNI"] != DBNull.Value ? lector["DNI"].ToString() : null,
+                                    ObraSocial = lector["ObraSocial"] != DBNull.Value ? lector["ObraSocial"].ToString() : null,
+                                    Mail = lector["Mail"] != DBNull.Value ? lector["Mail"].ToString() : null,
+                                    Telefono = lector["Telefono"] != DBNull.Value ? lector["Telefono"].ToString() : null,
                                     Edad = Convert.ToInt32(lector["Edad"]),
-                                    Descripcion = lector["Descripcion"].ToString()
+                                    Descripcion = lector["Descripcion"] != DBNull.Value ? lector["Descripcion"].ToString() : null
                                 };
                             }
                         }
@@ -152,12 +152,12 @@ namespace GestorDePaciente
                                 {
                                     Id = Convert.ToInt32(lector["Id"]),
                                     Nombre = lector["Nombre"].ToString(),
-                                    DNI = lector["DNI"].ToString(),
-                                    ObraSocial = lector["ObraSocial"].ToString(),
-                                    Mail = lector["Mail"].ToString(),
-                                    Telefono = lector["Telefono"].ToString(),
+                                    DNI = lector["DNI"] != DBNull.Value ? lector["DNI"].ToString() : null,
+                                    ObraSocial = lector["ObraSocial"] != DBNull.Value ? lector["ObraSocial"].ToString() : null,
+                                    Mail = lector["Mail"] != DBNull.Value ? lector["Mail"].ToString() : null,
+                                    Telefono = lector["Telefono"] != DBNull.Value ? lector["Telefono"].ToString() : null,
                                     Edad = Convert.ToInt32(lector["Edad"]),
-                                    Descripcion = lector["Descripcion"].ToString()
+                                    Descripcion = lector["Descripcion"] != DBNull.Value ? lector["Descripcion"].ToString() : null
                                 });
                             }
                         }

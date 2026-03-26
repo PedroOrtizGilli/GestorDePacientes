@@ -34,13 +34,15 @@ namespace GestorDePaciente
                 return;
             }
 
-            txtNombre.Text = pacienteActual.Nombre;
-            txtDNI.Text = pacienteActual.DNI;
-            txtTelefono.Text = pacienteActual.Telefono;
+            txtNombre.Text = pacienteActual.Nombre ?? "";
+            txtDNI.Text = pacienteActual.DNI ?? "";
+            txtTelefono.Text = pacienteActual.Telefono ?? "";
             txtEdad.Text = pacienteActual.Edad.ToString();
-            txtObraSocial.Text = pacienteActual.ObraSocial;
-            txtMail.Text = pacienteActual.Mail;
-            txtDescripcion.Text = pacienteActual.Descripcion;
+            txtObraSocial.Text = pacienteActual.ObraSocial ?? "";
+            txtMail.Text = pacienteActual.Mail ?? "";
+            txtDescripcion.Text = pacienteActual.Descripcion ?? "";
+
+            label8.Text = $"Ficha de {pacienteActual.Nombre}";
         }
 
         private void btnRecetas_Click(object senderr, EventArgs e)

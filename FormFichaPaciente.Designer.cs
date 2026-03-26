@@ -234,6 +234,7 @@
             Controls.Add(txtNombre);
             Name = "FormFichaPaciente";
             Text = "FormFichaPaciente";
+            Load += FormFichaPaciente_Load;
             ResumeLayout(false);
             PerformLayout();
         }
