@@ -12,6 +12,7 @@ namespace GestorDePaciente
     {
         private int pacienteId;
         private Crud.Paciente pacienteActual;
+        private bool modoEdicion = false;
         public FormFichaPaciente(int Id)
         {
             InitializeComponent();
@@ -21,6 +22,13 @@ namespace GestorDePaciente
         private void FormFichaPaciente_Load(object sender, EventArgs e)
         {
             cargarDatosPaciente();
+            txtNombre.ReadOnly = true;
+            txtDNI.ReadOnly = true;
+            txtTelefono.ReadOnly = true;
+            txtEdad.ReadOnly = true;
+            txtObraSocial.ReadOnly = true;
+            txtMail.ReadOnly = true;
+            txtDescripcion.ReadOnly = true;
         }
 
         private void cargarDatosPaciente()
@@ -55,7 +63,53 @@ namespace GestorDePaciente
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            
+            if (!modoEdicion)
+            {
+                // Activar modo edición
+                modoEdicion = true;
+                btnActualizar.Text = "Guardar";
+
+                txtNombre.ReadOnly = false;
+                txtDNI.ReadOnly = false;
+                txtTelefono.ReadOnly = false;
+                txtEdad.ReadOnly = false;
+                txtObraSocial.ReadOnly = false;
+                txtMail.ReadOnly = false;
+                txtDescripcion.ReadOnly = false;
+            }
+            else
+            {
+                // Guardar cambios
+                pacienteActual.Nombre = txtNombre.Text;
+                pacienteActual.DNI = txtDNI.Text;
+                pacienteActual.Telefono = txtTelefono.Text;
+                pacienteActual.Edad = int.Parse(txtEdad.Text);
+                pacienteActual.ObraSocial = txtObraSocial.Text;
+                pacienteActual.Mail = txtMail.Text;
+                pacienteActual.Descripcion = txtDescripcion.Text;
+
+                bool actualizado = Crud.PacienteDAO.Actualizar(pacienteActual);
+
+                if (actualizado)
+                {
+                    MessageBox.Show("Paciente actualizado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    modoEdicion = false;
+                    btnActualizar.Text = "Actualizar";
+                    cargarDatosPaciente();
+
+                    txtNombre.ReadOnly = true;
+                    txtDNI.ReadOnly = true;
+                    txtTelefono.ReadOnly = true;
+                    txtEdad.ReadOnly = true;
+                    txtObraSocial.ReadOnly = true;
+                    txtMail.ReadOnly = true;
+                    txtDescripcion.ReadOnly = true;
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el paciente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
