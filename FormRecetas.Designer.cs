@@ -65,9 +65,10 @@
             // lblNombrePaciente
             // 
             lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(191, 23);
+            lblNombrePaciente.Font = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblNombrePaciente.Location = new Point(134, 24);
             lblNombrePaciente.Name = "lblNombrePaciente";
-            lblNombrePaciente.Size = new Size(38, 15);
+            lblNombrePaciente.Size = new Size(90, 28);
             lblNombrePaciente.TabIndex = 3;
             lblNombrePaciente.Text = "label1";
             // 

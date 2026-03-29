@@ -35,7 +35,7 @@ namespace GestorDePaciente
         {
             pacienteActual = Crud.PacienteDAO.ObtenerPorId(pacienteId);
 
-            if(pacienteActual == null)
+            if (pacienteActual == null)
             {
                 MessageBox.Show("Paciente no encontrado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();

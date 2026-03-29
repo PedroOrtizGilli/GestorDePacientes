@@ -165,7 +165,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Consolas", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(151, 22);
+            label8.Location = new Point(106, 24);
             label8.Name = "label8";
             label8.Size = new Size(269, 37);
             label8.TabIndex = 16;
