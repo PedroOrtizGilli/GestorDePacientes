@@ -42,11 +42,10 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
-            btnAceptar = new Button();
-            btnDeshacer = new Button();
             label8 = new Label();
             btnActualizar = new Button();
             btnRecetas = new Button();
+            btnEliminar = new Button();
             SuspendLayout();
             // 
             // txtNombre
@@ -162,24 +161,6 @@
             label7.TabIndex = 13;
             label7.Text = "Descripcion";
             // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(125, 699);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(147, 52);
-            btnAceptar.TabIndex = 14;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            // 
-            // btnDeshacer
-            // 
-            btnDeshacer.Location = new Point(291, 699);
-            btnDeshacer.Name = "btnDeshacer";
-            btnDeshacer.Size = new Size(147, 52);
-            btnDeshacer.TabIndex = 15;
-            btnDeshacer.Text = "Deshacer";
-            btnDeshacer.UseVisualStyleBackColor = true;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -192,12 +173,13 @@
             // 
             // btnActualizar
             // 
-            btnActualizar.Location = new Point(208, 641);
+            btnActualizar.Location = new Point(211, 622);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(147, 52);
             btnActualizar.TabIndex = 17;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
+            btnActualizar.Click += btnActualizar_Click;
             // 
             // btnRecetas
             // 
@@ -207,17 +189,26 @@
             btnRecetas.TabIndex = 18;
             btnRecetas.Text = "Ver recetas";
             btnRecetas.UseVisualStyleBackColor = true;
+            btnRecetas.Click += btnRecetas_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(211, 689);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(147, 52);
+            btnEliminar.TabIndex = 19;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
             // 
             // FormFichaPaciente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(566, 763);
+            Controls.Add(btnEliminar);
             Controls.Add(btnRecetas);
             Controls.Add(btnActualizar);
             Controls.Add(label8);
-            Controls.Add(btnDeshacer);
-            Controls.Add(btnAceptar);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -255,10 +246,9 @@
         private Label label5;
         private Label label6;
         private Label label7;
-        private Button btnAceptar;
-        private Button btnDeshacer;
         private Label label8;
         private Button btnActualizar;
         private Button btnRecetas;
+        private Button btnEliminar;
     }
 }

@@ -65,7 +65,6 @@ namespace GestorDePaciente
         {
             if (!modoEdicion)
             {
-                // Activar modo edición
                 modoEdicion = true;
                 btnActualizar.Text = "Guardar";
 
@@ -79,7 +78,6 @@ namespace GestorDePaciente
             }
             else
             {
-                // Guardar cambios
                 pacienteActual.Nombre = txtNombre.Text;
                 pacienteActual.DNI = txtDNI.Text;
                 pacienteActual.Telefono = txtTelefono.Text;
