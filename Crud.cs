@@ -230,35 +230,43 @@ namespace GestorDePaciente
 
             public static int Insertar(Receta receta, string archivoOrigen)
             {
-                string carpetaPaciente = Path.Combine(carpetaRecetas, $"Paciente_{receta.PacienteId:D4}");
-                Directory.CreateDirectory(carpetaPaciente);
-
-                string extension = Path.GetExtension(archivoOrigen);
-                string nombreArchivo = $"receta_{DateTime.Now:yyyyMMdd_HHmmss}{extension}";
-                string rutaDestino = Path.Combine(carpetaPaciente, nombreArchivo);
-
-                File.Copy(archivoOrigen, rutaDestino, true);
-
-                string rutaRelativa = Path.Combine("Recetas", $"Paciente_{receta.PacienteId:D4}", nombreArchivo);
-
-                using (var conn = DatabaseHelper.ObtenerConexion())
+                try
                 {
-                    conn.Open();
+                    string carpetaPaciente = System.IO.Path.Combine(carpetaRecetas, $"Paciente_{receta.PacienteId:D4}");
+                    System.IO.Directory.CreateDirectory(carpetaPaciente);
 
-                    string query = @"INSERT INTO Recetas (PacienteId, NombreArchivo, RutaArchivo, FechaEmision, Descripcion)
-                                    VALUES (@PacienteId, @NombreArchivo, @RutaArchivo, @FechaEmision, @Descripcion);
-                                    SELECT last_insert_rowid();";
+                    string extension = System.IO.Path.GetExtension(archivoOrigen);
+                    string nombreArchivo = $"receta_{DateTime.Now:yyyyMMdd_HHmmss}{extension}";
+                    string rutaDestino = System.IO.Path.Combine(carpetaPaciente, nombreArchivo);
 
-                    using (var cmd = new SqliteCommand(query, conn))
+                    System.IO.File.Copy(archivoOrigen, rutaDestino, true);
+
+                    string rutaRelativa = System.IO.Path.Combine("Recetas", $"Paciente_{receta.PacienteId:D4}", nombreArchivo);
+
+                    using (var conn = DatabaseHelper.ObtenerConexion())
                     {
-                        cmd.Parameters.AddWithValue("@PacienteId", receta.PacienteId);
-                        cmd.Parameters.AddWithValue("@NombreArchivo", receta.NombreArchivo);
-                        cmd.Parameters.AddWithValue("@RutaArchivo", receta.RutaArchivo);
-                        cmd.Parameters.AddWithValue("@FechaEmision", receta.FechaEmision);
-                        cmd.Parameters.AddWithValue("@Descripcion", receta.Descripcion);
+                        conn.Open();
 
-                        return Convert.ToInt32(cmd.ExecuteScalar());
+                        string query = @"INSERT INTO Recetas (PacienteId, NombreArchivo, RutaArchivo, FechaEmision, Descripcion)
+                                VALUES (@PacienteId, @NombreArchivo, @RutaArchivo, @FechaEmision, @Descripcion);
+                                SELECT last_insert_rowid();";
+
+                        using (var cmd = new SqliteCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@PacienteId", receta.PacienteId);
+                            cmd.Parameters.AddWithValue("@NombreArchivo", nombreArchivo);
+                            cmd.Parameters.AddWithValue("@RutaArchivo", rutaRelativa);
+                            cmd.Parameters.AddWithValue("@FechaEmision", receta.FechaEmision?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@Descripcion", receta.Descripcion ?? (object)DBNull.Value);
+
+                            return Convert.ToInt32(cmd.ExecuteScalar());
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show($"Error en RecetaDAO.Insertar:\n{ex.Message}\n\n{ex.StackTrace}", "Error");
+                    throw;
                 }
             }
 
@@ -269,7 +277,6 @@ namespace GestorDePaciente
                 using (var conn = DatabaseHelper.ObtenerConexion())
                 {
                     conn.Open();
-
                     string query = "SELECT * FROM Recetas WHERE PacienteId = @PacienteId ORDER BY FechaEmision DESC";
 
                     using (var cmd = new SqliteCommand(query, conn))
@@ -286,14 +293,15 @@ namespace GestorDePaciente
                                     PacienteId = Convert.ToInt32(lector["PacienteId"]),
                                     NombreArchivo = lector["NombreArchivo"].ToString(),
                                     RutaArchivo = lector["RutaArchivo"].ToString(),
-                                    FechaEmision = lector["FechaEmision"] != DBNull.Value ? Convert.ToDateTime(lector["FechaEmision"]) : (DateTime?)null,
-                                    Descripcion = lector["Descripcion"].ToString()
+                                    FechaEmision = lector["FechaEmision"] != DBNull.Value
+                                                  ? DateTime.Parse(lector["FechaEmision"].ToString())
+                                                  : (DateTime?)null,
+                                    Descripcion = lector["Descripcion"] != DBNull.Value ? lector["Descripcion"].ToString() : null
                                 });
                             }
                         }
                     }
                 }
-
                 return recetas;
             }
 
@@ -303,6 +311,7 @@ namespace GestorDePaciente
                 {
                     conn.Open();
                     string query = "SELECT * FROM Recetas WHERE Id = @Id";
+
                     using (var cmd = new SqliteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", recetaId);
@@ -317,8 +326,10 @@ namespace GestorDePaciente
                                     PacienteId = Convert.ToInt32(lector["PacienteId"]),
                                     NombreArchivo = lector["NombreArchivo"].ToString(),
                                     RutaArchivo = lector["RutaArchivo"].ToString(),
-                                    FechaEmision = lector["FechaEmision"] != DBNull.Value ? Convert.ToDateTime(lector["FechaEmision"]) : (DateTime?)null,
-                                    Descripcion = lector["Descripcion"].ToString()
+                                    FechaEmision = lector["FechaEmision"] != DBNull.Value
+                                                  ? DateTime.Parse(lector["FechaEmision"].ToString())
+                                                  : (DateTime?)null,
+                                    Descripcion = lector["Descripcion"] != DBNull.Value ? lector["Descripcion"].ToString() : null
                                 };
                             }
                         }
@@ -332,23 +343,25 @@ namespace GestorDePaciente
                 try
                 {
                     var receta = ObtenerPorId(recetaId);
+
                     if (receta == null)
                     {
-                        MessageBox.Show("Receta no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Windows.Forms.MessageBox.Show("Receta no encontrada", "Error");
                         return false;
                     }
 
-                    string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, receta.RutaArchivo);
+                    string rutaCompleta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, receta.RutaArchivo);
 
-                    if (File.Exists(rutaCompleta))
+                    if (System.IO.File.Exists(rutaCompleta))
                     {
-                        File.Delete(rutaCompleta);
+                        System.IO.File.Delete(rutaCompleta);
                     }
 
                     using (var conn = DatabaseHelper.ObtenerConexion())
                     {
                         conn.Open();
                         string query = "DELETE FROM Recetas WHERE Id = @Id";
+
                         using (var cmd = new SqliteCommand(query, conn))
                         {
                             cmd.Parameters.AddWithValue("@Id", recetaId);
@@ -358,10 +371,10 @@ namespace GestorDePaciente
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al eliminar la receta: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Windows.Forms.MessageBox.Show($"Error al eliminar receta:\n{ex.Message}", "Error");
                     return false;
                 }
-            } 
+            }
 
             public static void AbrirArchivo(int recetaId)
             {
@@ -371,15 +384,15 @@ namespace GestorDePaciente
 
                     if (receta == null)
                     {
-                        MessageBox.Show("Receta no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Windows.Forms.MessageBox.Show("Receta no encontrada", "Error");
                         return;
                     }
 
-                    string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, receta.RutaArchivo);
+                    string rutaCompleta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, receta.RutaArchivo);
 
-                    if (File.Exists(rutaCompleta))
+                    if (!System.IO.File.Exists(rutaCompleta))
                     {
-                        MessageBox.Show($"Abriendo archivo: {rutaCompleta}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        System.Windows.Forms.MessageBox.Show($"El archivo no existe:\n{rutaCompleta}", "Error");
                         return;
                     }
 
@@ -391,10 +404,9 @@ namespace GestorDePaciente
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al abrir el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    System.Windows.Forms.MessageBox.Show($"Error al abrir archivo:\n{ex.Message}", "Error");
                 }
-            } 
+            }
         }
     }
 }
