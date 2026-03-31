@@ -8,12 +8,21 @@ namespace GestorDePaciente
 {
     internal class DatabaseHelper
     {
-        private static string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GestorPacientes.db");
+        private static string carpetaDatos = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "GestorDePaciente"
+        );
+
+        private static string dbPath = Path.Combine(carpetaDatos, "GestorPacientes.db");
         private static string connectionString = $"Data Source={dbPath}";
 
         public static void InicializarBaseDatos()
         {
-            CrearTablas();
+            Directory.CreateDirectory(carpetaDatos);
+            if (!File.Exists(dbPath))
+            {
+                CrearTablas();
+            }
         }
 
         //Crear las tablas
