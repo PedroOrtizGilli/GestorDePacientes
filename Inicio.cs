@@ -9,14 +9,24 @@ namespace GestorDePaciente
             DatabaseHelper.InicializarBaseDatos();
         }
 
-        private void inicio_Load(Object sender, EventArgs e)
+        private void ConfigurarControlesResponsivos()
         {
-            cargarPacientesVencidos();
-            ConfigurarDataGridView();
-        }
 
-        private void ConfigurarDataGridView()
-        {
+            label2.AutoSize = false;
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label2.Location = new Point(0, 10);
+            label2.Size = new Size(this.ClientSize.Width, 60);
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+
+
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            label1.Location = new Point(20, 85);
+
+            buscador.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            buscador.Location = new Point(90, 82);
+            buscador.Width = this.ClientSize.Width - 110; // Ajustado al ancho
+
+
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             int margen = 15;
@@ -34,7 +44,20 @@ namespace GestorDePaciente
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.RowHeadersVisible = false;
+
+
+            crearNuevo.Anchor = AnchorStyles.Bottom;
+            int btnX = (this.ClientSize.Width - crearNuevo.Width) / 2; // Centrado
+            int btnY = this.ClientSize.Height - 70;
+            crearNuevo.Location = new Point(btnX, btnY);
         }
+
+        private void inicio_Load(Object sender, EventArgs e)
+        {
+            ConfigurarControlesResponsivos();
+            cargarPacientesVencidos();
+        }
+
 
         private void cargarPacientesVencidos()
         {

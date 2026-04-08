@@ -44,13 +44,12 @@ namespace GestorDePaciente
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 153);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1295, 410);
+            dataGridView1.Size = new Size(1221, 410);
             dataGridView1.TabIndex = 3;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // buscador
             // 
-            buscador.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             buscador.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buscador.Location = new Point(62, 90);
             buscador.Name = "buscador";
@@ -69,9 +68,10 @@ namespace GestorDePaciente
             // 
             // crearNuevo
             // 
+            crearNuevo.Anchor = AnchorStyles.Bottom;
             crearNuevo.BackColor = Color.YellowGreen;
             crearNuevo.Font = new Font("Consolas", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            crearNuevo.Location = new Point(554, 598);
+            crearNuevo.Location = new Point(513, 600);
             crearNuevo.Name = "crearNuevo";
             crearNuevo.Size = new Size(198, 58);
             crearNuevo.TabIndex = 6;
@@ -81,21 +81,21 @@ namespace GestorDePaciente
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Consolas", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(288, 18);
+            label2.Location = new Point(210, 20);
             label2.Name = "label2";
             label2.Size = new Size(830, 56);
             label2.TabIndex = 7;
             label2.Text = "Sistema de Gestión de pacientes";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightCyan;
-            ClientSize = new Size(1334, 686);
+            ClientSize = new Size(1260, 686);
             Controls.Add(label2);
             Controls.Add(crearNuevo);
             Controls.Add(label1);
