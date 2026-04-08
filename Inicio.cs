@@ -17,11 +17,23 @@ namespace GestorDePaciente
 
         private void ConfigurarDataGridView()
         {
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+            int margen = 15;
+            int alturaSuperior = 160;
+
+            dataGridView1.Location = new Point(margen, alturaSuperior);
+            dataGridView1.Width = this.ClientSize.Width - (margen * 2);
+            dataGridView1.Height = this.ClientSize.Height - alturaSuperior - 100;
+
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.RowHeadersVisible = false;
         }
 
         private void cargarPacientesVencidos()

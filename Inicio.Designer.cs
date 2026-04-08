@@ -39,6 +39,7 @@ namespace GestorDePaciente
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.BackgroundColor = SystemColors.ActiveBorder;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 153);
@@ -49,6 +50,7 @@ namespace GestorDePaciente
             // 
             // buscador
             // 
+            buscador.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             buscador.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buscador.Location = new Point(62, 90);
             buscador.Name = "buscador";
@@ -79,6 +81,7 @@ namespace GestorDePaciente
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Consolas", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(288, 18);
